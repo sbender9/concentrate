@@ -38,6 +38,16 @@ Concentrate.prototype.result = function result() {
   this.jobs.forEach(function(job) {
     var method = ["write", job.type].join("_");
 
+    if (job.fields) {
+      job.data = 255;
+      job.fields.forEach(function(field) {
+        job.data <<= field.bits;
+        job.data |= field.value;
+        job.data &= 255;
+      })
+    }
+
+
     if (typeof this[method] === "function") {
       offset += this[method](job, buffer, offset);
     }
@@ -88,7 +98,7 @@ Concentrate.prototype.string = function string(data, encoding) {
       if(b === 8){
           endiannes = "";
       }
-      
+
       var type = [s, "int", b, e].join(""),
           method = ["write", s.toUpperCase(), "Int", b, endiannes.toUpperCase()].join(""),
           length = b / 8;
@@ -125,3 +135,24 @@ Concentrate.prototype.string = function string(data, encoding) {
     };
   });
 });
+
+Concentrate.prototype.tinyInt = function(value, bits) {
+  var tinyJob = makeLastJobTiny(this.jobs);
+  tinyJob.fields.push({
+    value: value,
+    bits: bits
+  });
+}
+
+function makeLastJobTiny(jobs) {
+  if (jobs.length === 0 || ! (jobs[jobs.length -1].type === 'tinyInt') ) {
+    jobs.push({
+      type: "number",
+      method: "writeUInt8",
+      length: 1,
+      fields: [],
+      bits: 0
+    });
+  }
+  return jobs[jobs.length -1];
+}
