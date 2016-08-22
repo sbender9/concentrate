@@ -138,7 +138,7 @@ Concentrate.prototype.string = function string(data, encoding) {
 
 Concentrate.prototype.tinyInt = function(value, bits) {
   var tinyJob = makeLastJobTiny(this.jobs);
-  tinyJob.fields.push({
+  tinyJob.fields.unshift({
     value: value,
     bits: bits
   });
