@@ -146,7 +146,7 @@ Concentrate.prototype.tinyInt = function(value, bits) {
 }
 
 function makeLastJobTiny(jobs) {
-  if (jobs.length === 0 || !jobs[jobs.length -1].fields || jobs[jobs.length-1].bits >= 8) {
+  if (jobs.length === 0 || !jobs[jobs.length -1].fields) {
     jobs.push({
       type: "number",
       method: "writeUInt8",
