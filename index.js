@@ -78,6 +78,16 @@ Concentrate.prototype.string = function string(data, encoding) {
   return this.buffer(new Buffer(data, encoding));
 };
 
+Concentrate.prototype.uint64 = function uint64(data) {
+  const b = new Buffer(8)
+  const MAX_UINT32 = 0xFFFFFFFF
+  const big = ~~(data / MAX_UINT32)
+  const low = (data % MAX_UINT32) - big
+  b.writeUInt32BE(big, 0)
+  b.writeUInt32BE(low, 4)
+  return this.buffer(b)
+};
+
 [8, 16, 32].forEach(function(b) {
   ["", "u"].forEach(function(s) {
     ["", "le", "be"].forEach(function(e) {
