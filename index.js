@@ -1,6 +1,9 @@
 var stream = require("stream"),
     util = require("util");
 
+const Int64LE = require('int64-buffer').Int64LE
+const Uint64LE = require('int64-buffer').Uint64LE
+
 var Concentrate = module.exports = function Concentrate(options) {
   if (!(this instanceof Concentrate)) { return new Concentrate(options); }
 
@@ -77,6 +80,25 @@ Concentrate.prototype.buffer = function buffer(data) {
 Concentrate.prototype.string = function string(data, encoding) {
   return this.buffer(new Buffer(data, encoding));
 };
+
+
+Concentrate.prototype.uint64 = function uint64(data) {
+  /*
+   const b = new Buffer(8)
+   const MAX_UINT32 = 0xFFFFFFFF
+   const big = ~~(data / MAX_UINT32)
+   const low = (data % MAX_UINT32) - big
+   b.writeUInt32BE(big, 0)
+   b.writeUInt32BE(low, 4)
+   return this.buffer(b)
+  */
+  return this.buffer(new Uint64LE(data).toBuffer())
+};
+
+Concentrate.prototype.uint64 = function int64(data) {
+  return this.buffer(new Int64LE(data).toBuffer())
+};
+
 
 [8, 16, 32].forEach(function(b) {
   ["", "u"].forEach(function(s) {
