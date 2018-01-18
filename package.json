@@ -1,16 +1,18 @@
 {
-  "name": "concentrate",
-  "version": "0.2.3",
+  "name": "concentrate2",
+  "version": "0.0.1",
   "description": "Produce binary data with a neat DSL",
   "main": "index.js",
   "engines": {
     "node": "~0.10.0"
   },
-  "dependencies": {},
+  "dependencies": {
+    "int64-buffer": "^0.1.10"
+  },
   "devDependencies": {},
   "repository": {
     "type": "git",
-    "url": "git://github.com/deoxxa/concentrate.git"
+    "url": "https://github.com/sbender9/concentrate2"
   },
   "keywords": [
     "concentrate",
@@ -19,6 +21,17 @@
     "produce",
     "dsl"
   ],
-  "author": "Conrad Pankoff <deoxxa@fknsrs.biz> (http://www.fknsrs.biz/)",
+    "author": {
+    "name": "Scott Bender",
+    "email": "scott@scottbender.net"
+  },
+  "contributors": [
+    {
+      "name": "Teppo Kurki"
+    },
+    {
+      "name": "Conrad Pankoff <deoxxa@fknsrs.biz> (http://www.fknsrs.biz/)"
+    }
+  ],
   "license": "BSD"
 }
