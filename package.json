@@ -1,6 +1,6 @@
 {
   "name": "concentrate2",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "Produce binary data with a neat DSL",
   "main": "index.js",
   "engines": {
